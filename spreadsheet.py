@@ -15,5 +15,9 @@ class SpreadSheet:
         value = self.get(cell)
         if value.isdigit():
             return int(value)
-        return value
+        try:
+            float(value)  # Check if it can be converted to a float
+            return "#Error"
+        except ValueError:
+            return value
 
