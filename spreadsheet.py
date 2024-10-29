@@ -10,7 +10,7 @@ class SpreadSheet:
     def get(self, cell: str) -> str:
         return self._cells.get(cell, '')
 
-    def evaluate(self, cell: str):
+    def evaluate(self, cell: str) -> int | str:
         value = self.get(cell)
         if value.isdigit():
             return int(value)
@@ -23,9 +23,14 @@ class SpreadSheet:
             elif value.startswith("='") and value.endswith("'"):
                 return value[2:-1]
             elif value.startswith("="):
-                try:
+                if value[1:].isdigit():
                     return int(value[1:])
-                except ValueError:
-                    return "#Error"
+                else:
+                    # Assume the rest is a cell reference
+                    referenced_value = self.get(value[1:])
+                    if referenced_value.isdigit():
+                        return int(referenced_value)
+                    else:
+                        return "#Error"
             return "#Error"
 
