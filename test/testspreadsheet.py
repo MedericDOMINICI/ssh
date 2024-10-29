@@ -34,7 +34,7 @@ class TestSpreadSheet(TestCase):
         spreadsheet.set("A1", "=1")
         self.assertEqual(1, spreadsheet.evaluate("A1"))
 
-    def test_evaluate_simple_non_valid_formula(self):
+    def test_evaluate_simple_non_valid_formula_string(self):
         spreadsheet = SpreadSheet()
         spreadsheet.set("A1", "='Apple")
         self.assertEqual("#Error", spreadsheet.evaluate("A1"))
